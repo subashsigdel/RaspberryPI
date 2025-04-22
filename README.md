@@ -1,6 +1,4 @@
-# RaspberryPI
-Everything I learn about PI
-#####
+
 # Raspberry Pi 3 GPIO Pinout
 
 **full GPIO pinout** of the Raspberry Pi 3, formatted for easy reading and reference:
