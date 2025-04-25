@@ -7,7 +7,6 @@ def setup():
 
 def loop():
     while True:
-        # Neck movement
         neck_move_left()
         neck_center_from_left()
         sleep(0.5)
@@ -16,13 +15,11 @@ def loop():
         neck_center_from_right()
         sleep(0.5)
 
-        # Jaw movement
         jaw_open()
         sleep(0.3)
         jaw_close()
         sleep(0.3)
 
-        # Eye movement
         look_left()
         eye_center_from_left()
         sleep(0.5)
@@ -31,7 +28,6 @@ def loop():
         eye_center_from_right()
         sleep(0.5)
 
-        # Look up and down
         eye_up()
         eye_center_from_up()
         sleep(0.5)

@@ -1,61 +1,61 @@
-from gpiozero import Servo
+import pigpio
 from time import sleep
 
-# Replace with actual GPIO pins
-horizontal_servo = Servo(17)  # GPIO17
-vertical_servo = Servo(18)    # GPIO18
+pi = pigpio.pi()
 
-# Angle mapping helpers
-def angle_to_pulse(value):
-    # Maps 0–180 degrees to -1 to 1 range for gpiozero Servo
-    return (value / 90.0) - 1
+HORIZONTAL_PIN = 17
+VERTICAL_PIN = 18
 
-# Horizontal Eye Movement
+def angle_to_pulse(angle):
+    return int(500 + (angle * 2000 / 180))  # 0–180° to 500–2500µs
+
+def set_servo(pin, angle):
+    pi.set_servo_pulsewidth(pin, angle_to_pulse(angle))
+
 def look_left():
     for angle in range(90, 44, -2):
-        horizontal_servo.value = angle_to_pulse(angle)
+        set_servo(HORIZONTAL_PIN, angle)
         sleep(0.015)
     sleep(0.5)
 
 def look_right():
     for angle in range(90, 136, 2):
-        horizontal_servo.value = angle_to_pulse(angle)
+        set_servo(HORIZONTAL_PIN, angle)
         sleep(0.015)
     sleep(0.5)
 
 def eye_center_from_left():
     for angle in range(45, 91, 2):
-        horizontal_servo.value = angle_to_pulse(angle)
+        set_servo(HORIZONTAL_PIN, angle)
         sleep(0.015)
     sleep(0.5)
 
 def eye_center_from_right():
     for angle in range(135, 89, -2):
-        horizontal_servo.value = angle_to_pulse(angle)
+        set_servo(HORIZONTAL_PIN, angle)
         sleep(0.015)
     sleep(0.5)
 
-# Vertical Eye Movement
 def eye_up():
     for angle in range(90, 44, -2):
-        vertical_servo.value = angle_to_pulse(angle)
+        set_servo(VERTICAL_PIN, angle)
         sleep(0.015)
     sleep(0.5)
 
 def eye_down():
     for angle in range(90, 146, 2):
-        vertical_servo.value = angle_to_pulse(angle)
+        set_servo(VERTICAL_PIN, angle)
         sleep(0.015)
     sleep(0.5)
 
 def eye_center_from_up():
     for angle in range(45, 91, 2):
-        vertical_servo.value = angle_to_pulse(angle)
+        set_servo(VERTICAL_PIN, angle)
         sleep(0.015)
     sleep(0.5)
 
 def eye_center_from_down():
     for angle in range(145, 89, -2):
-        vertical_servo.value = angle_to_pulse(angle)
+        set_servo(VERTICAL_PIN, angle)
         sleep(0.015)
     sleep(0.5)

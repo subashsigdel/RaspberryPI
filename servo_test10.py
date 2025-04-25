@@ -1,23 +1,27 @@
-import RPi.GPIO as GPIO
+import pigpio
 import time
 
-GPIO.setmode(GPIO.BCM)  # or GPIO.BOARD depending on your wiring
+# Setup pigpio
+pi = pigpio.pi()
+
+if not pi.connected:
+    print("Failed to connect to pigpio daemon!")
+    exit()
 
 # Define your Servo class
 class Servo:
     def __init__(self, pin):
         self.pin = pin
-        GPIO.setup(pin, GPIO.OUT)
-        self.pwm = GPIO.PWM(pin, 50)  # 50Hz frequency
-        self.pwm.start(0)
+        pi.set_mode(pin, pigpio.OUTPUT)
         self.current_angle = 0
 
-    def angle_to_duty(self, angle):
-        return 2 + (angle / 18)
+    def angle_to_pulse(self, angle):
+        # Convert angle to pulse width (1000 - 2000 µs for 0° - 180°)
+        return 1000 + (angle * 1000 / 180)
 
     def write(self, angle):
-        duty = self.angle_to_duty(angle)
-        self.pwm.ChangeDutyCycle(duty)
+        pulsewidth = self.angle_to_pulse(angle)
+        pi.set_servo_pulsewidth(self.pin, pulsewidth)
         self.current_angle = angle
         time.sleep(0.02)
 
@@ -25,7 +29,7 @@ class Servo:
         return self.current_angle
 
     def stop(self):
-        self.pwm.stop()
+        pi.set_servo_pulsewidth(self.pin, 0)  # Stops the servo
 
 # Assign GPIO pins for each finger
 # Adjust pin numbers based on your actual wiring
@@ -89,4 +93,7 @@ try:
         time.sleep(2)
 
 except KeyboardInterrupt:
-    GPIO.cleanup()
+    print("Exiting gracefully...")
+    for servo in list(leftHandServos.values()) + list(rightHandServos.values()):
+        servo.stop()
+    pi.stop()
