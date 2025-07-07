@@ -1,0 +1,7 @@
+What Is a Potentiometer?
+The potentiometer is basically a long piece of uniform wire across which a standard cell is connected. In the actual design, the long wire is cut into several pieces, and it is placed side by side and connected at the ends with a thick metal strip. The current flowing through the wire can be varied using a variable resistance (rheostat) connected to the circuit. The resistance can be changed manually to measure the potential difference. The potential difference between any two points in a circuit is the amount of work done in bringing the charge from the first point to the second point. When there is a potential difference, there will be a current flow in the circuit.
+
+The potentiometer is an instrument used to measure the unknown voltage by comparing it with the known voltage. It can be used to determine the emf and internal resistance of the given cell and also used to compare the emf of different cells. The comparative method is used by the potentiometer. The reading is more accurate in a potentiometer.
+
+Working Principle of Potentiometer
+The basic principle of the potentiometer is that the potential drop across any section of the wire will be directly proportional to the length of the wire, provided the wire is of a uniform cross-sectional area and a uniform current flows through the wire.
